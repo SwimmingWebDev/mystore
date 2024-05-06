@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Register</h1>
+
+<form action="{{ url_for('register') }}" method="POST">
+    <div class="form-align">
+        <div class="form-label">
+            <p class="gap">Email</p>
+            <input type="email" name="email" placeholder="Email" autofocus="" required>
+        </div>
+        <div class="form-label">
+            <p>Username</p>
+            <input type="text" name="name" placeholder="Name" autofocus="" required>
+        </div>
+        <div class="form-label">
+            <p>Password</p>
+            <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <input type="file" name="photo">
+    </div>
+    <br>
+    <small>Already Signed up? <a href="{{ url_for('login') }}">Login</a></small>
+    <br><input type="submit" value="Sign Up">
+</form>
+
+
+{% endblock %}
