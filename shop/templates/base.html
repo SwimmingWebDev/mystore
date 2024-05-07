@@ -8,6 +8,17 @@
 </head>
 
 <body>
+    <nav>
+        <div>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('additem') }}">Add Items</a>
+            <a href="{{ url_for('addcategory') }}">Add Category</a>
+
+        </div>
+    </nav>
+
     {% block content %}
     {% endblock %}
 

@@ -31,7 +31,6 @@ def login():
             flash(f'Welcome, {email} You are logged in.')
             # login_user(user, remember=remember)
             return redirect(url_for('home') or url_for('admin')) 
-   
         else:
             flash(f'Please try again.')
     else:
