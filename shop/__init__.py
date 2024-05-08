@@ -26,5 +26,9 @@ bcrypt = Bcrypt(app)
 
 db.init_app(app)
 
+
+
+
 from shop.admin import routes
 from shop.products import routes
+from shop.carts import routes

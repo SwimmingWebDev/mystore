@@ -2,13 +2,12 @@
 
 {% block content %}
 
-{% if items %}
-<h1>Add Item</h1>
+<h1>Update Item</h1>
 <form action="" method="POST" enctype="multipart/form-data">
     <div class="form-label">
         <p>Category</p>
         <select name="category" id="category" class="custom-select" required>
-            <option value="">Add a category</option>
+            <option value="{{ product.category_id }}">{{product.category.name}}</option>
             {% for category in categories %}
             <option value="{{ category.id }}">{{ category.name }}</option>
             {% endfor %}
@@ -18,38 +17,30 @@
     <div class="form-align">
         <div class="form-label">
             <p>Name</p>
-            <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="name" value="{{product.name}}" required>
         </div>
 
         <div class="form-label">
             <p>Price</p>
-            <input type="text" name="price" placeholder="Price" required>
+            <input type="text" name="price" value="{{product.price}}" required>
         </div>
         <div class="form-label">
             <p>Quantity</p>
-            <input type="text" name="quantity" placeholder="Quantity" required>
+            <input type="text" name="quantity" value="{{product.quantity}}" required>
         </div>
         <div class="form-label">
             <p>Description</p>
-            <input type="text" name="description" placeholder="Description" required>
+            <input type="text" name="description" value="{{product.description}}" required>
         </div><br>
         <div class="form-label">
             <p>Photo</p>
-            <input type="file" name="item-photo" required>
+            <input type="file" name="item-photo" value="{{ product.photo }}">
         </div>
 
         <br>
-        <input type="submit" value="Add Item">
+        <input type="submit" value="Update Item">
 </form>
-{% else %}
-<h1>Add Category</h1>
-<form action="" method="POST">
-    <input type="text" name="category" placeholder="Enter Name"><br>
-    <input type="submit" value="Add Category">
-</form>
-{% endif %}
-<br>
-<a href="{{ url_for('admin') }}">Go Back</a>
+
 <br>
 {% include "messages.html" %}
 

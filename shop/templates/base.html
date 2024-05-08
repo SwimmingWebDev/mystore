@@ -10,15 +10,16 @@
 <body>
     <nav>
         <div>
-            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('admin') }}">Home</a>
             <a href="{{ url_for('register') }}">Register</a>
             <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('home') }}">Products</a>
             <a href="{{ url_for('additem') }}">Add Items</a>
+            <a href="{{ url_for('category') }}">Update Category</a>
             <a href="{{ url_for('addcategory') }}">Add Category</a>
-
+            <a href="{{ url_for('getcart') }}">Cart ({{ session['shoppingcart']|length }})</a>
         </div>
     </nav>
-
     {% block content %}
     {% endblock %}
 

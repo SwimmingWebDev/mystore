@@ -1,4 +1,4 @@
-from sqlalchemy import DateTime, Numeric, ForeignKey, Integer, String
+from sqlalchemy import DateTime, Numeric, ForeignKey, Integer, String, Float
 from sqlalchemy.orm import mapped_column, relationship
 from sqlalchemy.sql import func
 from datetime import datetime
@@ -12,7 +12,7 @@ class Category(db.Model):
 class Item(db.Model):
     id = mapped_column(Integer, primary_key=True)
     name = mapped_column(String(30), nullable=False, unique=True)
-    price = mapped_column(Integer, nullable=True)
+    price = mapped_column(Float, nullable=True)
     quantity = mapped_column(Integer, nullable=True)
     description = mapped_column(String(500), nullable=True)
     created = mapped_column(DateTime, nullable=False, default=datetime.now().replace(microsecond=0))
@@ -20,7 +20,6 @@ class Item(db.Model):
     category_id = mapped_column(Integer, ForeignKey('category.id'), nullable=False)
     category = relationship('Category', back_populates="cat")
  
-
     photo = mapped_column(String(10), nullable=False, default='item.jpg')
 
 

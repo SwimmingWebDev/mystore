@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Shopping Cart</h1>
+<div class="container">
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </thead>
+        <tbody>
+
+            {% for key, product in session['shoppingcart'].items() %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td><img src="{{url_for('static', filename='img/' + product.image)}}" alt="{{product.name}}" width="60"
+                        , height="60"></td>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.quantity}}</td>
+                {% set subtotal = product.quantity|int * product.price|float %}
+                <td>{{ subtotal }}</td>
+                <td><a href="#" class="btn">Update</a></td>
+                <td><a href="#" class="btn">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table>
+        <tr>
+            <td><a href="{{ url_for('home') }}">Continue Shopping</a></td>
+            <td width="33%"></td>
+            <td>Tax ${{ tax }}</td>
+            <td>Estimated Total ${{ estimated }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

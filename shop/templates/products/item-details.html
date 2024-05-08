@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Product detail</h1>
+<div class="column">
+    <img src="{{ url_for('static', filename='img/' + product.photo)}}" alt={{product.name}} width="350" height="350"
+        class="productpic">
+    <div class="card">
+        <div class="info">
+            <h3>{{product.name}}</h2>
+                <p>${{product.price|round(2)}}</p>
+        </div>
+        <div class="details">
+            <p><strong>Qunatities:</strong> {{ product.quantity }}</p>
+            <p><strong>Product description</strong><br>{{ product.description }}</p>
+        </div>
+        <div class="options">
+            <form action="{{ url_for('addcart') }}" method="post">
+                <div><label for="">Qty: </label><input style="width: 50px;" type="number" name="quantity" value="1"
+                        min="1" max="{{ product.quantity }}">
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <input type="submit" value="Add to Cart">
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<br>
+<a href="{{ url_for('home') }}">Go Back</a>
+
+{% endblock %}

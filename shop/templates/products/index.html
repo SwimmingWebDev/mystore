@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Enjoy your Shopping Cart</h1>
+
+<div class="category">
+    <p>Categories</p>
+    {% for category in categories %}
+    <a href="{{url_for('getcategory', id=category.id)}}">
+        <h3>{{ category.name }}</h3>
+    </a>
+    {% endfor %}
+</div>
+
+{% if category_items %}
+<div class="row">
+    {% for c in category_items %}
+    <div class="column">
+        <img src="{{url_for('static', filename='img/' + c.photo)}}" alt="{{c.name}}">
+        <div class="card">
+            <div class="info">
+                <h3>{{c.name}}</h2>
+                    <p>${{c.price}}</p>
+            </div>
+            <div class="options">
+                <form action="{{ url_for('addcart') }}" method="post">
+                    <div><label for="">Qty: </label><input style="width: 50px;" type="number" name="quantity" value="1"
+                            min="1" max="{{ c.quantity }}">
+                        <input type="hidden" name="c_id" value="{{ c.id }}">
+                        <input type="submit" value="Add to Cart">
+                    </div>
+                </form>
+                <a href="{{url_for('itemdetails', id=c.id)}}" class="btn">Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+
+<div class="row">
+    {% for product in products %}
+    <div class="column">
+        <img src="{{url_for('static', filename='img/' + product.photo)}}" alt="{{product.name}}">
+        <div class="card">
+            <div class="info">
+                <h3>{{product.name}}</h2>
+                    <p>${{product.price}}</p>
+            </div>
+            <div class="options">
+                <form action="{{ url_for('addcart') }}" method="post">
+                    <div><label for="">Qty: </label><input style="width: 50px;" type="number" name="quantity" value="1"
+                            min="1" max="{{ product.quantity }}">
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <input type="submit" value="Add to Cart">
+                    </div>
+                </form>
+                <a href="{{url_for('itemdetails', id=product.id)}}" class="btn">Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock %}
