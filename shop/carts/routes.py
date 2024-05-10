@@ -29,8 +29,13 @@ def addcart():
         
         if 'shoppingcart' in session:
             print(session['shoppingcart'])
+            
             if product_id in session['shoppingcart']:
-                print("Already in your Cart")
+                for key, item in session['shoppingcart'].items():
+                    if int(key) == int(product_id):
+                        session.modified = True
+                        item['quantity'] += quantity
+
             else:
                 session['shoppingcart'] = mergeDicts(session['shoppingcart'], cartItems)
                 return redirect(request.referrer)
@@ -70,7 +75,6 @@ def updatecart(code):
                 flash(" Item is updated ")
                 return redirect(url_for('getcart'))
             
-
 @app.route('/clearcart')
 def clearcart():
     session.pop('shoppingcart', None)
