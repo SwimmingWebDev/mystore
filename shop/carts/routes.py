@@ -45,8 +45,8 @@ def addcart():
 
 @app.route('/cart')
 def getcart():
-    if 'shoppingcart' not in session:
-        return redirect(request.referrer)
+    if 'shoppingcart' not in session or len(session['shoppingcart']) <= 0:
+        return redirect(url_for('home'))
     subtotal = 0
     estimated = 0
     for key, product in session['shoppingcart'].items():
@@ -56,3 +56,34 @@ def getcart():
 
     return render_template('products/carts.html', tax = tax, estimated = estimated)
 
+
+@app.route('/updatecart/<int:code>', methods=['POST'])
+def updatecart(code):
+    if 'shoppingcart' not in session or len(session['shoppingcart']) <= 0:
+        return redirect(url_for('home'))
+    if request.method == "POST":
+        quantity = request.form.get('quantity')
+        session.modified = True
+        for key, item in session['shoppingcart'].items():
+            if int(key) == code:
+                item['quantity'] = quantity
+                flash(" Item is updated ")
+                return redirect(url_for('getcart'))
+            
+
+@app.route('/clearcart')
+def clearcart():
+    session.pop('shoppingcart', None)
+    return redirect(url_for('home')) 
+
+@app.route('/delete-cart-item/<int:id>')
+def deletecartitem(id):
+    if 'shoppingcart' not in session or len(session['shoppingcart']) <= 0:
+        return redirect(url_for('home'))
+
+    session.modified = True
+    for key, item in session['shoppingcart'].items():
+        if int(key) == id:
+            session['shoppingcart'].pop(key, None)
+            flash(" Item is deleted ")
+            return redirect(url_for('getcart'))

@@ -268,3 +268,42 @@ input[type="submit"]:hover {
   align-items: center;
   gap: 10px;
 }
+
+input[type="number"] {
+  width: 3em;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  margin-left: 3px;
+  width: 30px;
+  height: 30px;
+  opacity: 0.2;
+}
+
+/* hide flash_message */
+
+.fade-out-message {
+  -webkit-animation: fade-out 1s forwards;
+  animation: fade-out 1s forwards;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

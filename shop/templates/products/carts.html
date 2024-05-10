@@ -3,6 +3,9 @@
 {% block content %}
 <h1>Shopping Cart</h1>
 <div class="container">
+
+    {% include "messages.html" %}
+    <br>
     <table>
         <thead>
             <th>ID</th>
@@ -22,12 +25,14 @@
                 <td><img src="{{url_for('static', filename='img/' + product.image)}}" alt="{{product.name}}" width="60"
                         , height="60"></td>
                 <td>{{product.name}}</td>
-                <td>{{product.price}}</td>
-                <td>{{product.quantity}}</td>
-                {% set subtotal = product.quantity|int * product.price|float %}
-                <td>{{ subtotal }}</td>
-                <td><a href="#" class="btn">Update</a></td>
-                <td><a href="#" class="btn">Delete</a></td>
+                <form action="{{ url_for('updatecart', code=key) }}" method="post">
+                    <td>${{product.price}}</td>
+                    <td><input type="number" name="quantity" min="1" max="10" value="{{product.quantity}}"></td>
+                    {% set subtotal = product.quantity|int * product.price|float %}
+                    <td>${{ subtotal }}</td>
+                    <td><input type="submit" value="Update"></td>
+                </form>
+                <td><a href="{{url_for('deletecartitem', id=key )}}" class="btn">Delete</a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -35,9 +40,11 @@
     <table>
         <tr>
             <td><a href="{{ url_for('home') }}">Continue Shopping</a></td>
-            <td width="33%"></td>
+            <td width="23%"></td>
+            <td width="15%"><a href="{{ url_for('clearcart') }}" class="btn">Clear Cart</a></td>
             <td>Tax ${{ tax }}</td>
-            <td>Estimated Total ${{ estimated }}</td>
+            <td><strong>Total ${{ estimated }}</strong></td>
+
         </tr>
     </table>
 </div>
